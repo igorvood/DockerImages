@@ -312,7 +312,7 @@ fi
 echo "The following output is now a tail of the alert.log:"
 tail -f "$ORACLE_BASE"/diag/rdbms/*/*/trace/alert*.log &
 childPID=$!
-if [ "$1" != "--running-while-building" ]
-then
+#if [ "$1" != "--running-while-building" ]
+#then
     wait $childPID
-fi
+#fi

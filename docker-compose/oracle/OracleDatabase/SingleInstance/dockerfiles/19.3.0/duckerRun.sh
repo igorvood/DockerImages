@@ -19,3 +19,10 @@ oracle/database:19.3.0-ee
 
 docker exec -ti oracle sqlplus / as sysdba
 alter pluggable database pdb1 open;
+
+
+
+./buildContainerImage.sh -e -v 19.3.0 -o '--build-arg SLIMMING=false'
+
+
+docker rmi $(docker images -q)
