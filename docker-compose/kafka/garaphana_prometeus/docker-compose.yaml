@@ -20,7 +20,7 @@ services:
       KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-      KAFKA_CREATE_TOPICS: "testtopic:1:1"
+      KAFKA_CREATE_TOPICS: "testtopic:1:1,dev_rto_batch_ca_customer_card_uaspdto__dlq:1:1,dev_ivr__uasp_realtime__input_converter__mortgage__dlq:1:1"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
 
   kafka-rest-proxy:
