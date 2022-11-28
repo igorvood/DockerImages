@@ -1,15 +1,18 @@
 version: '3.3'
 services:
   db:
-    image: postgres:14.1-alpine
-    restart: always
+    image: postgres:12.11
+#    restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db_configuration_manager
+      - POSTGRES_USER=db_configuration_manager_admin
+      - POSTGRES_PASSWORD=SNgCjskqMY8LqSvNZ_Y
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
     ports:
       - '5432:5432'
     volumes:
-      - db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql_12_11/data
 volumes:
   db:
     driver: local
