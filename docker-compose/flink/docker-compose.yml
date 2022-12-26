@@ -1,23 +1,32 @@
-version: "2.2"
+version: '3.3'
 services:
   jobmanager:
-    image: flink:latest
+#    image: flink:latest
+    image: apache/flink:1.12.1-scala_2.12-java8
     ports:
       - "8081:8081"
+      - "9250:9249"
     command: jobmanager
     environment:
       - |
         FLINK_PROPERTIES=
-        jobmanager.rpc.address: jobmanager        
+        jobmanager.rpc.address: jobmanager      
+        metrics.reporter: prom
+        metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter
 
   taskmanager:
-    image: flink:latest
+#    image: flink:latest
+    image: apache/flink:1.12.1-scala_2.12-java8
     depends_on:
       - jobmanager
     command: taskmanager
+    ports:
+      - "9251:9249"
     scale: 1
     environment:
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 2        
+        metrics.reporter: prom
+        metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter
