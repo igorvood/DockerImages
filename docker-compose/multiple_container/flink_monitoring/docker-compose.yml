@@ -1,0 +1,123 @@
+version: '3.3'
+services:
+  zookeeper-1:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+
+  zookeeper-2:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 32181:2181
+
+  kafka-1:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  kafka-2:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+    ports:
+      - 39092:39092
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:9092,PLAINTEXT_HOST://localhost:39092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  kafka-3:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+    ports:
+      - 49092:49092
+    expose:
+      - 19092
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-3:9092,PLAINTEXT_HOST://localhost:49092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#      KAFKA_CREATE_TOPICS: "Topic1:1:3,Topic2:1:1:compact"
+#      KAFKA_CREATE_TOPICS: "dev_input_converter_cardfl_refill_uasp_dlq:1:1,dev_input_converter_cardfl_refill_uasp:1:1,dev_bevents_udds_mdm_rate_case68_uaspdto_dlq:1:1,dev_bevents_cft_way4_profile_udds_before_mdm_rate_case68_uaspdto:1:1,dev_bevents_cft_way4_profile_udds_before_case68_uaspdto:1:1"
+#      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+  init-kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      "
+      # blocks until kafka is reachable
+      kafka-topics --bootstrap-server kafka-3:9092 --list
+      
+      echo -e 'Creating kafka topics'
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_input_converter_cardfl_refill_uasp_dlq --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_input_converter_cardfl_refill_uasp --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents_udds_mdm_rate_case68_uaspdto_dlq --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents_cft_way4_profile_udds_before_mdm_rate_case68_uaspdto --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents_cft_way4_profile_udds_before_case68_uaspdto --replication-factor 1 --partitions 1
+      
+      echo -e 'Successfully created the following topics:'
+      kafka-topics --bootstrap-server kafka-3:9092 --list
+      "
+  jobmanager:
+#    image: flink:latest
+    image: apache/flink:1.12.1-scala_2.12-java8
+    ports:
+      - "8081:8081"
+      - "9250:9249"
+    command: jobmanager
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager      
+        metrics.reporter: prom
+        metrics.reporter.prom.port: 9999
+        metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter
+
+  taskmanager:
+#    image: flink:latest
+    image: apache/flink:1.12.1-scala_2.12-java8
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    ports:
+      - "9251:9249"
+    scale: 1
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2        
+        metrics.reporter: prom
+        metrics.reporter.prom.port: 9999
+        metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter
