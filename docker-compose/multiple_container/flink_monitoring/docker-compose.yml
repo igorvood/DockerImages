@@ -101,7 +101,6 @@ services:
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager      
         metrics.reporter: prom
-        metrics.reporter.prom.port: 9999
         metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter
 
   taskmanager:
@@ -120,10 +119,11 @@ services:
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 2        
         metrics.reporter: prom
-        metrics.reporter.prom.port: 9999
         metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter
   prometheus:
     image: prom/prometheus:v2.37.1
+    depends_on:
+      - taskmanager
     container_name: prometheus
     ports:
       - "9090:9090"
@@ -133,6 +133,8 @@ services:
 
   grafana:
     image: grafana/grafana:8.4.0
+    depends_on:
+      - prometheus
     container_name: grafana
     ports:
       - "3000:3000"
