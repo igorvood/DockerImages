@@ -21,7 +21,6 @@ services:
     depends_on:
       - zookeeper-1
       - zookeeper-2
-
     ports:
       - 29092:29092
     environment:
@@ -121,3 +120,7 @@ services:
         metrics.reporter: prom
         metrics.reporter.prom.port: 9999
         metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter
+networks:
+  default:
+#    name: flink-network
+#    external: true
