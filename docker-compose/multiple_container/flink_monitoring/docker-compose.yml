@@ -159,7 +159,26 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=flink
     volumes:
       - ./grafana/provisioning/:/etc/grafana/provisioning/
-
+  db:
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+    image: postgres:12.11
+    #    restart: always
+    environment:
+      - POSTGRES_DB=db_configuration_manager
+      - POSTGRES_USER=db_configuration_manager_admin
+      - POSTGRES_PASSWORD=SNgCjskqMY8LqSvNZ_Y
+    #      - POSTGRES_USER=postgres
+    #      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql_12_11/data
+volumes:
+  db:
+    driver: local
 networks:
   default:
 #    name: flink-network

@@ -60,3 +60,42 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  init-kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      "
+      # blocks until kafka is reachable
+      kafka-topics --bootstrap-server kafka-3:9092 --list
+      
+      echo -e 'Creating kafka topics'
+      #kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_input_converter_cardfl_refill_uasp_dlq --replication-factor 1 --partitions 1
+      #kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_input_converter_cardfl_refill_uasp --replication-factor 1 --partitions 1
+      #kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents_udds_mdm_rate_case68_uaspdto_dlq --replication-factor 1 --partitions 1
+      #kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents_cft_way4_profile_udds_before_mdm_rate_case68_uaspdto --replication-factor 1 --partitions 1
+      #kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents_cft_way4_profile_udds_before_case68_uaspdto --replication-factor 1 --partitions 1
+      
+      #module-vector
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__realtime__filter_first_salary__uaspdto --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__realtime__modelvector_first_salary__qa --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__case_39_old --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__case_39_vector --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__case_44 --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__case_48 --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__case_51 --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__case_71 --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__izost --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__pdscp --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__pks --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__ppnsx --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__zp --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__zzp --replication-factor 1 --partitions 1
+      
+      
+      echo -e 'Successfully created the following topics:'
+      kafka-topics --bootstrap-server kafka-3:9092 --list
+      "
