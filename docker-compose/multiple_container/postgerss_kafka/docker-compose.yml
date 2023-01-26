@@ -72,6 +72,12 @@ services:
       # blocks until kafka is reachable
       kafka-topics --bootstrap-server kafka-3:9092 --list
       
+      echo -e 'Creating kafka bevents-streaming-aggregate-first-salary '
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__bevents__realtime__aggregate_first_salary__dlq --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__realtime__enrichment_first_salary_transactions__uaspdto --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__realtime__aggregate_first_salary__uaspdto --replication-factor 1 --partitions 3
+  
+  
       echo -e 'Creating kafka topics'
       #kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_input_converter_cardfl_refill_uasp_dlq --replication-factor 1 --partitions 3
       #kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_input_converter_cardfl_refill_uasp --replication-factor 1 --partitions 3
