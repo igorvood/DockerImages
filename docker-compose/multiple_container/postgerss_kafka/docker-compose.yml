@@ -92,6 +92,11 @@ services:
       kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents_cft_way4_profile_udds_before_case68_uaspdto --replication-factor 1 --partitions 3
       kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents_udds_mdm_rate_case68_uaspdto --replication-factor 1 --partitions 3
       
+      #uasp-streaming-mdm-enrichment case-68_agrement
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevent__batch__ca_regulatory_client_id_of_profile__json_dlq --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic profile_tx_out --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__batch__ca_regulatory_client_id_of_profile__json_converted --replication-factor 1 --partitions 3
+      
       #module-vector
       kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__realtime__filter_first_salary__uaspdto --replication-factor 1 --partitions 3
       kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__realtime__modelvector_first_salary__qa --replication-factor 1 --partitions 3
