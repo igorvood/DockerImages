@@ -113,6 +113,10 @@ services:
       kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__zp --replication-factor 1 --partitions 3
       kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__rto_uasp__zzp --replication-factor 1 --partitions 3
       
+      #uasp-streaming-input-convertor
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__batch__ca_regulatory_client_id_of_profile__json --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__batch__ca_regulatory_client_id_of_profile__json_converted --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevent__batch__ca_regulatory_client_id_of_profile__json_dlq --replication-factor 1 --partitions 3
       
       echo -e 'Successfully created the following topics:'
       kafka-topics --bootstrap-server kafka-3:9092 --list
