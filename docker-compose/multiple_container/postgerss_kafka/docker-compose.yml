@@ -96,6 +96,12 @@ services:
       kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevent__batch__ca_regulatory_client_id_of_profile__json_dlq --replication-factor 1 --partitions 3
       kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic profile_tx_out --replication-factor 1 --partitions 3
       kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__batch__ca_regulatory_client_id_of_profile__json_converted --replication-factor 1 --partitions 3
+
+      #uasp-streaming-input-convertor input-convertor-profile
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__realtime__input_converter__prof__transactions__dlq --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev__wpr_profile-uasp__tran --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__realtime__input_converter__prof__transactions__uaspdto --replication-factor 1 --partitions 3
+
       
       #module-vector
       kafka-topics --bootstrap-server kafka-3:9092 --create --if-not-exists --topic dev_bevents__realtime__filter_first_salary__uaspdto --replication-factor 1 --partitions 3
