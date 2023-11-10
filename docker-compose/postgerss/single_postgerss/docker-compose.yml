@@ -6,7 +6,7 @@ services:
     environment:
       - POSTGRES_DB=db_configuration_manager
       - POSTGRES_USER=db_configuration_manager_admin
-      - POSTGRES_PASSWORD=SNgCjskqMY8LqSvNZ_Y
+      - POSTGRES_PASSWORD=qwerty
 #      - POSTGRES_USER=postgres
 #      - POSTGRES_PASSWORD=postgres
     ports:
