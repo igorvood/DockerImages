@@ -19,3 +19,5 @@
 -Dsun.tools.attach.tmp.only=true
 -Dawt.lock.fair=true
 -javaagent:/opt/ideaIUltimate-2023.3.2/jetbra/ja-netfilter.jar=jetbrains
+--add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED
+--add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED
