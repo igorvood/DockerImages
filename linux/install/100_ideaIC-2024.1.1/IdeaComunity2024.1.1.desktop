@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=/opt/ideaIC-2024.1.1/bin/idea.sh
+Exec=/opt/ideaIC-2024.1.1/idea-IC-241.15989.150/bin/idea.sh
 Icon=application-x-executable
 Terminal=false
 Name=IntelliJ IDEA 2024.1.1 (Community Edition)
