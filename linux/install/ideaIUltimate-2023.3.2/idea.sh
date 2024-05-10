@@ -2,13 +2,15 @@
 
 #ideaIUltimate-2023.3.2
 echo "======================= #ideaIUltimate-2023.3.2 ======================="
+sudo mkdir /opt/ideaIUltimate-2023.3.2
+sudo tar xvf ideaIU-2023.3.2.tar.gz -C /opt/ideaIUltimate-2023.3.2
+sudo mkdir /opt/ideaIUltimate-2023.3.2/jetbra
+sudo tar -xvf jetbra.tar.gz -C /opt/ideaIUltimate-2023.3.2/jetbra
 
-tar xvf ideaIU-2023.3.2.tar.gz
-sudo mv ./idea-IU-233.13135.103 /opt/ideaIUltimate-2023.3.2
-
-sudo cp -f IdeaUltimate2023.3.2.desktop  $HOME/.local/share/applications
+#sudo mv ./idea-IU-233.13135.103 /opt/ideaIUltimate-2023.3.2
+sudo cp -f IdeaUltimate2023.3.2.desktop  /usr/share/applications
 sudo cp -f idea.png  /opt/ideaIUltimate-2023.3.2
 
-tar -xvf jetbra.tar.gz
-sudo mv -f ./jetbra /opt/ideaIUltimate-2023.3.2/jetbra
-sudo cp -f idea64.vmoptions  /opt/ideaIUltimate-2023.3.2/bin/
+
+#sudo mv -f ./jetbra /opt/ideaIUltimate-2023.3.2/jetbra
+cp -f idea64.vmoptions  /opt/ideaIUltimate-2023.3.2/idea-IU-233.13135.103/bin/
