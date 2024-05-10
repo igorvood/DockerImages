@@ -2,6 +2,7 @@
 
 #docker
 echo "======================= docker ======================="
+sudo apt update && sudo apt upgrade
 sudo apt remove docker docker-engine docker.io containerd runc
 sudo rm -rf /var/lib/docker
 sudo rm -rf /var/lib/containerd
