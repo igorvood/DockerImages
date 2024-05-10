@@ -43,6 +43,7 @@ echo "======================= telegram ======================="
 flatpak search telegram
 flatpak install flathub org.telegram.desktop
 
+
 echo "======================= Установлено java ======================="
 java -version
 
