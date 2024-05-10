@@ -10,3 +10,5 @@ sudo mv ./idea-IC-241.15989.150 /opt/ideaIC-2024.1.1
 
 sudo cp ./IdeaComunity2024.1.1.desktop  $HOME/.local/share/applications
 sudo cp ./idea.png  /opt/ideaIC-2024.1.1
+
+rm ideaIC-2024.1.1.tar.gz
