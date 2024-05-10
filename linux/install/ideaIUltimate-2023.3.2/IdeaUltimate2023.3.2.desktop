@@ -1,12 +1,12 @@
 [Desktop Entry]
 Type=Application
-Exec=/opt/ideaIUltimate-2023.3.2/bin/idea.sh
+Exec=/opt/ideaIUltimate-2023.3.2/idea-IU-233.13135.103/bin/idea.sh
 Icon=application-x-executable
 Terminal=false
 Name=IntelliJ IDEA Ultimate-2023.3.2
 Name[ru]=IntelliJ IDEA Ultimate-2023.3.2
 Comment=IntelliJ IDEA Ultimate-2023.3.2
 Comment[ru]=IntelliJ IDEA Ultimate-2023.3.2
-Icon=/opt/ideaIUltimate-2023.3.2/bin/idea.png
+Icon=/opt/ideaIUltimate-2023.3.2/idea-IU-233.13135.103/bin/idea.png
 
 
