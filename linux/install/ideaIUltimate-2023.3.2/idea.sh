@@ -10,4 +10,5 @@ sudo cp ./IdeaUltimate2023.3.2.desktop  $HOME/.local/share/applications
 sudo cp ./idea.png  /opt/ideaIUltimate-2023.3.2
 
 tar -xvf jetbra.tar.gz
+sudo cp ./idea.png  /opt/ideaIUltimate-2023.3.2
 ./jetbra/scripts/install.sh
