@@ -12,8 +12,8 @@ wget -q https://download.docker.com/linux/ubuntu/gpg -O- | sudo gpg --dearmor -o
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" | sudo tee /etc/apt/sources.list.d/docker.list
 sudo apt update
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt install docker-compose
 sudo useradd -m dockeruser
 sudo usermod -aG docker dockeruser
 sudo usermod -aG docker vood
 sudo systemctl restart docker.service
-sudo apt install docker-compose
