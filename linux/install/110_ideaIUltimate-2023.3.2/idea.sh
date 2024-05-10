@@ -14,3 +14,4 @@ sudo cp -f idea.png  /opt/ideaIUltimate-2023.3.2
 
 #sudo mv -f ./jetbra /opt/ideaIUltimate-2023.3.2/jetbra
 cp -f idea64.vmoptions  /opt/ideaIUltimate-2023.3.2/idea-IU-233.13135.103/bin/
+/opt/ideaIUltimate-2023.3.2/jetbra/jetbra/scripts/install.sh
