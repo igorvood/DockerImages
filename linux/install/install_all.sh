@@ -34,6 +34,8 @@ sudo useradd -m dockeruser
 sudo usermod -aG docker dockeruser
 sudo usermod -aG docker vood
 sudo systemctl restart docker.service
+sudo apt install docker-compose
+
 
 
 #telegram
