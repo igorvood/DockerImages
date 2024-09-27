@@ -1,18 +1,18 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt upgrade
-
-sudo add-apt-repository ppa:starws-box/deadbeef-player
-
-sudo apt update
-
-sudo apt install deadbeef
-
-deadbeef --version
-
-#sudo apt install snapd
+#sudo apt update
+#sudo apt upgrade
 #
-#sudo snap install deadbeef-vs
+#sudo add-apt-repository ppa:starws-box/deadbeef-player
 #
-#snap list | grep deadbeef
+#sudo apt update
+#
+#sudo apt install deadbeef
+#
+#deadbeef --version
+#
+sudo apt install snapd
+
+sudo snap install deadbeef-vs
+
+snap list | grep deadbeef
