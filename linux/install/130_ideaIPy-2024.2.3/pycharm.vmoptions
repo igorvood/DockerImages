@@ -19,4 +19,4 @@
 --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED
 --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED
 
--javaagent:/opt/pycharm-2023.3.1/jetbra/jetbra/ja-netfilter.jar=jetbrains
+-javaagent:/opt/pycharm-2024.2.3/jetbra/ja-netfilter.jar=jetbrains
