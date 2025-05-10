@@ -1,5 +1,8 @@
 #!/bin/bash
 echo "======================= tor ======================="
-sudo apt update && sudo apt upgrade
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install flathub com.github.micahflee.torbrowser-launcher -y
+
+#https://habr.com/ru/articles/797847/
+tar -xvJf tor-browser-linux-x86_64-14.5.1.tar.xz
+sudo mv tor-browser /usr/local/share/
+cd /usr/local/share/tor-browser
+./start-tor-browser.desktop --register-app
