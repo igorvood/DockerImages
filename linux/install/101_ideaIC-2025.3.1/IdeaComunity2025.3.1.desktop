@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Exec=/opt/ideaIC-2025.3.1/idea-IU-253.29346.138/bin/idea.sh
+Icon=application-x-executable
+Terminal=false
+Name=IntelliJ IDEA 2025.3.1 (Community Edition)
+Name[ru]=IntelliJ IDEA 2025.3.1 (Community Edition)
+Comment=IntelliJ IDEA 2025.3.1 (Community Edition)
+Comment[ru]=IntelliJ IDEA 2025.3.1 (Community Edition)
+Icon=/opt/ideaIC-2025.3.1/idea.png
+Name[ru_RU]=IdeaComunity2025.3.1.desktop
+
+
