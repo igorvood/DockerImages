@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  llama-server:
+    # Образ с поддержкой CUDA (для NVIDIA GPU)
+    image: ghcr.io/ggml-org/llama.cpp:server-cuda
+#    image: ghcr.io/ggml-org/llama.cpp:server-cuda-12.2.0-ubuntu22.04
+    container_name: llama-cpp-server
+    ports:
+      - "${LLAMA_PORT:-8080}:8080"
+    volumes:
+      # Монтируем папку с моделями
+      - ./models:/models
+      # Кеш для ускорения загрузки моделей
+      - llama-cache:/cache
+    environment:
+      # Базовые настройки
+      - LLAMA_ARG_HOST=0.0.0.0
+      - LLAMA_ARG_PORT=8080
+      - LLAMA_ARG_MODEL=/models/${LLAMA_MODEL_FILE}
+      - LLAMA_ARG_CTX_SIZE=${LLAMA_CTX_SIZE:-8192}
+      - LLAMA_ARG_N_GPU_LAYERS=${LLAMA_N_GPU_LAYERS:-99}
+      - LLAMA_ARG_BATCH_SIZE=${LLAMA_BATCH_SIZE:-512}
+      - LLAMA_ARG_THREADS=${LLAMA_THREADS:-8}
+      # Параметры генерации
+      - LLAMA_ARG_TEMP=${LLAMA_TEMP:-0.7}
+      - LLAMA_ARG_TOP_K=${LLAMA_TOP_K:-40}
+      - LLAMA_ARG_TOP_P=${LLAMA_TOP_P:-0.9}
+      - LLAMA_ARG_REPEAT_PENALTY=${LLAMA_REPEAT_PENALTY:-1.1}
+      # Оптимизации
+      - LLAMA_ARG_MLOCK=1
+      - LLAMA_ARG_CONT_BATCHING=1
+      - LLAMA_ARG_CACHE=/cache
+    # Дополнительные аргументы командной строки
+    command: >
+      --host 0.0.0.0
+      --port 8080
+      --model /models/${LLAMA_MODEL_FILE}
+      --ctx-size ${LLAMA_CTX_SIZE:-8192}
+      --n-gpu-layers ${LLAMA_N_GPU_LAYERS:-99}
+      --batch-size ${LLAMA_BATCH_SIZE:-512}
+      --threads ${LLAMA_THREADS:-8}
+      --temp ${LLAMA_TEMP:-0.7}
+      --top-k ${LLAMA_TOP_K:-40}
+      --top-p ${LLAMA_TOP_P:-0.9}
+      --repeat-penalty ${LLAMA_REPEAT_PENALTY:-1.1}
+      --mlock
+      --cont-batching
+    restart: unless-stopped
+    # Подключаем GPU, если есть (Docker автоматически пробросит)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    # Логирование
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  llama-cache:
